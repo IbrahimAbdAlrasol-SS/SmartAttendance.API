@@ -19,19 +19,12 @@ namespace SmartAttendance.API.Data
         public DbSet<AttendanceRecord> AttendanceRecords { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            
-            // تكوين بسيط للـ User
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.Email).IsRequired().HasMaxLength(255);
-                entity.Property(e => e.PasswordHash).IsRequired().HasMaxLength(255);
-                entity.Property(e => e.UserType).IsRequired().HasMaxLength(20);
-                entity.HasIndex(e => e.Email).IsUnique();
-            });
-        }
+                {
+                    base.OnModelCreating(modelBuilder);
+                    
+                    // Apply configurations
+                    ApplyEntityConfigurations(modelBuilder);
+                }
 
         private void ApplyEntityConfigurations(ModelBuilder modelBuilder)
         {

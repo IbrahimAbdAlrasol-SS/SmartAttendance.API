@@ -5,3 +5,4 @@ F:\stage3\SmartAttendanceSystem\SmartAttendance.API\obj\Debug\net9.0\SmartAttend
 F:\stage3\SmartAttendanceSystem\SmartAttendance.API\obj\Debug\net9.0\SmartAttendance.API.csproj.CoreCompileInputs.cache
 F:\stage3\SmartAttendanceSystem\SmartAttendance.API\obj\Debug\net9.0\SmartAttendance.API.MvcApplicationPartsAssemblyInfo.cs
 F:\stage3\SmartAttendanceSystem\SmartAttendance.API\obj\Debug\net9.0\SmartAttendance.API.MvcApplicationPartsAssemblyInfo.cache
+F:\stage3\SmartAttendanceSystem\SmartAttendance.API\obj\Debug\net9.0\SmartAttendance.API.sourcelink.json

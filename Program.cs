@@ -3,35 +3,26 @@ using SmartAttendance.API.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllers();
 
-// Database Configuration with proper error handling
-try
+// Database Configuration - استخدام ServerVersion.AutoDetect
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+    
+    if (builder.Environment.IsDevelopment())
     {
-        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-        options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
-        
-        if (builder.Environment.IsDevelopment())
-        {
-            options.EnableSensitiveDataLogging();
-            options.EnableDetailedErrors();
-        }
-    });
-}
-catch (Exception ex)
-{
-    Console.WriteLine($"❌ Database configuration error: {ex.Message}");
-}
+        options.EnableSensitiveDataLogging();
+        options.EnableDetailedErrors();
+    }
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

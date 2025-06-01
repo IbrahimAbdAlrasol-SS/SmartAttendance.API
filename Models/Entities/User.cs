@@ -2,11 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SmartAttendance.API.Models.Entities
 {
-    public class User
+    public class User : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
-        
         [Required]
         [MaxLength(255)]
         public string Email { get; set; } = string.Empty;
@@ -20,11 +17,10 @@ namespace SmartAttendance.API.Models.Entities
         public string UserType { get; set; } = string.Empty;
         
         public bool IsActive { get; set; } = true;
-        
         public bool EmailVerified { get; set; } = false;
         
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        
-        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        // Navigation Properties
+        public Student? Student { get; set; }
+        public Professor? Professor { get; set; }
     }
 }

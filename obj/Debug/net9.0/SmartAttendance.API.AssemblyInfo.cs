@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmartAttendance.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+07e1e8249a46e5717950f0985fc3122d3a71f9c5")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmartAttendance.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SmartAttendance.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
