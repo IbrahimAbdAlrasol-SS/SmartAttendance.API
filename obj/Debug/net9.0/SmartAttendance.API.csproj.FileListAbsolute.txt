@@ -1,5 +1,6 @@
 F:\stage3\SmartAttendanceSystem\SmartAttendance.API\bin\Debug\net9.0\appsettings.Development.json
 F:\stage3\SmartAttendanceSystem\SmartAttendance.API\bin\Debug\net9.0\appsettings.json
+F:\stage3\SmartAttendanceSystem\SmartAttendance.API\bin\Debug\net9.0\SmartAttendance.API.staticwebassets.runtime.json
 F:\stage3\SmartAttendanceSystem\SmartAttendance.API\bin\Debug\net9.0\SmartAttendance.API.staticwebassets.endpoints.json
 F:\stage3\SmartAttendanceSystem\SmartAttendance.API\bin\Debug\net9.0\SmartAttendance.API.exe
 F:\stage3\SmartAttendanceSystem\SmartAttendance.API\bin\Debug\net9.0\SmartAttendance.API.deps.json
