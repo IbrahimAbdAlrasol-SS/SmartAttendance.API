@@ -1,57 +1,44 @@
 namespace SmartAttendance.API.Models.DTOs
 {
-    public class ApiResponse<T>
-    {
-        public bool Success { get; set; }
-        public string Message { get; set; } = string.Empty;
-        public T? Data { get; set; }
-        public List<string>? Errors { get; set; }
-        public int? StatusCode { get; set; }
-
-        public static ApiResponse<T> SuccessResult(T data, string message = "تمت العملية بنجاح")
-        {
-            return new ApiResponse<T>
-            {
-                Success = true,
-                Message = message,
-                Data = data,
-                StatusCode = 200
-            };
-        }
-
-        public static ApiResponse<T> ErrorResult(string message, List<string>? errors = null, int statusCode = 400)
-        {
-            return new ApiResponse<T>
-            {
-                Success = false,
-                Message = message,
-                Errors = errors,
-                StatusCode = statusCode
-            };
-        }
-    }
-
     public class PagedResult<T>
     {
-        public List<T> Items { get; set; } = new List<T>();
+        public List<T> Data { get; set; } = new();
         public int TotalCount { get; set; }
-        public int Page { get; set; }
+        public int PageNumber { get; set; }
         public int PageSize { get; set; }
-        public int TotalPages => (int)Math.Ceiling((double)TotalCount / PageSize);
-        public bool HasNextPage => Page < TotalPages;
-        public bool HasPreviousPage => Page > 1;
+        public int TotalPages { get; set; }
+        public bool HasNextPage { get; set; }
+        public bool HasPreviousPage { get; set; }
     }
 
-    public class SelectListItem
+    public class TokenRefreshRequest
     {
-        public string Value { get; set; } = string.Empty;
-        public string Text { get; set; } = string.Empty;
-        public bool Selected { get; set; }
+        public string RefreshToken { get; set; } = string.Empty;
     }
 
-    public class ValidationErrorResponse
+    public class StudentFilterRequest
     {
-        public string Field { get; set; } = string.Empty;
-        public string Message { get; set; } = string.Empty;
+        public string? SearchTerm { get; set; }
+        public string? Stage { get; set; }
+        public string? StudyType { get; set; }
+        public string? Section { get; set; }
+        public bool? IsActive { get; set; }
+        public bool? HasFaceData { get; set; }
+        public int PageNumber { get; set; } = 1;
+        public int PageSize { get; set; } = 10;
+        public string? SortBy { get; set; } = "FullName";
+        public string? SortDirection { get; set; } = "asc";
+    }
+
+    public class StudentStatisticsDto
+    {
+        public int TotalStudents { get; set; }
+        public int ActiveStudents { get; set; }
+        public int InactiveStudents { get; set; }
+        public int StudentsWithFaceData { get; set; }
+        public int StudentsWithoutFaceData { get; set; }
+        public Dictionary<string, int> StudentsByStage { get; set; } = new();
+        public Dictionary<string, int> StudentsByStudyType { get; set; } = new();
+        public Dictionary<string, int> StudentsBySection { get; set; } = new();
     }
 }
