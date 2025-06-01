@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0" />
+    <!-- استخدم واحد فقط من MySql.Data أو MySqlConnector حسب الحاجة -->
     <PackageReference Include="MySqlConnector" Version="2.4.0" />
     
     <!-- Authentication & Security -->
