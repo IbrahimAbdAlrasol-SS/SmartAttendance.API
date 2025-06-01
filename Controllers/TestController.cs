@@ -13,7 +13,6 @@ namespace SmartAttendance.API.Controllers
         {
             try
             {
-                // اختبار إنشاء User
                 var user = new User
                 {
                     Email = "test@example.com",
@@ -22,7 +21,6 @@ namespace SmartAttendance.API.Controllers
                     IsActive = true
                 };
 
-                // اختبار إنشاء Student
                 var student = new Student
                 {
                     UserId = 1,
@@ -34,7 +32,6 @@ namespace SmartAttendance.API.Controllers
                     Phone = "07801234567"
                 };
 
-                // اختبار إنشاء Subject
                 var subject = new Subject
                 {
                     Name = "برمجة الحاسوب",

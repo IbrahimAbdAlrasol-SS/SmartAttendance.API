@@ -31,8 +31,6 @@ namespace SmartAttendance.API.Models.Entities
         [StringLength(255)]
         public string? ProfileImage { get; set; }
         
-        public new bool IsActive { get; set; } = true;
-        
         // Navigation Properties
         public User User { get; set; } = null!;
         public ICollection<CourseAssignment> CourseAssignments { get; set; } = new List<CourseAssignment>();

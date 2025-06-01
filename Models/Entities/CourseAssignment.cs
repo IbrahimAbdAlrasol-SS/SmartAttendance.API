@@ -25,8 +25,6 @@ namespace SmartAttendance.API.Models.Entities
         [StringLength(20)]
         public string Semester { get; set; } = string.Empty; // الفصل الأول، الفصل الثاني
         
-        public new bool IsActive { get; set; } = true;
-        
         // Navigation Properties
         public Professor Professor { get; set; } = null!;
         public Subject Subject { get; set; } = null!;

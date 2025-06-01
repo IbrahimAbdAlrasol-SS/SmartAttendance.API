@@ -5,18 +5,17 @@ namespace SmartAttendance.API.Models.Entities
     public class User : BaseEntity
     {
         [Required]
-        [MaxLength(255)]
+        [StringLength(255)]
         public string Email { get; set; } = string.Empty;
         
         [Required]
-        [MaxLength(255)]
+        [StringLength(255)]
         public string PasswordHash { get; set; } = string.Empty;
         
         [Required]
-        [MaxLength(20)]
-        public string UserType { get; set; } = string.Empty;
+        [StringLength(20)]
+        public string UserType { get; set; } = string.Empty; // Admin, Student, Professor
         
-        public new bool IsActive { get; set; } = true;
         public bool EmailVerified { get; set; } = false;
         
         // Navigation Properties

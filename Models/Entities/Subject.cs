@@ -25,8 +25,6 @@ namespace SmartAttendance.API.Models.Entities
         
         [StringLength(500)]
         public string? Description { get; set; }
-         
-        public new bool IsActive { get; set; } = true;
         
         // Navigation Properties
         public ICollection<CourseAssignment> CourseAssignments { get; set; } = new List<CourseAssignment>();

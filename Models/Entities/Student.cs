@@ -39,9 +39,8 @@ namespace SmartAttendance.API.Models.Entities
         [StringLength(255)]
         public string? ProfileImage { get; set; }
         
-        public new bool IsActive { get; set; } = true;
-        
         // Face Recognition Data
+        [Column(TypeName = "TEXT")]
         public string? FaceEncodingData { get; set; }
         
         public DateTime? LastFaceUpdate { get; set; }

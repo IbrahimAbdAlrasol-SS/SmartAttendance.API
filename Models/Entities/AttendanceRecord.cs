@@ -13,8 +13,8 @@ namespace SmartAttendance.API.Models.Entities
         [ForeignKey("Student")]
         public int StudentId { get; set; }
         
-        public System.DateTime? EntryTime { get; set; }
-        public System.DateTime? ExitTime { get; set; }
+        public DateTime? EntryTime { get; set; }
+        public DateTime? ExitTime { get; set; }
         
         [Required]
         [StringLength(20)]

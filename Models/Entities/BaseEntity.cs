@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SmartAttendance.API.Models
+namespace SmartAttendance.API.Models.Entities
 {
     public abstract class BaseEntity
     {

@@ -27,23 +27,19 @@ namespace SmartAttendance.API.Migrations
 
                     b.Property<string>("AttendanceStatus")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(20)
-                        .HasColumnType("varchar(20)")
-                        .HasDefaultValue("Absent");
+                        .HasColumnType("varchar(20)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<string>("DetectionMethod")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(20)
-                        .HasColumnType("varchar(20)")
-                        .HasDefaultValue("Manual");
+                        .HasColumnType("varchar(20)");
 
                     b.Property<DateTime?>("EntryTime")
                         .HasColumnType("datetime(6)");
@@ -53,6 +49,9 @@ namespace SmartAttendance.API.Migrations
 
                     b.Property<double?>("FaceConfidence")
                         .HasColumnType("double");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
@@ -71,7 +70,7 @@ namespace SmartAttendance.API.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -98,7 +97,7 @@ namespace SmartAttendance.API.Migrations
                         .HasColumnType("varchar(20)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
@@ -126,17 +125,16 @@ namespace SmartAttendance.API.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SubjectId");
+                    b.HasIndex("ProfessorId");
 
-                    b.HasIndex("ProfessorId", "SubjectId", "Section", "AcademicYear", "Semester")
-                        .IsUnique();
+                    b.HasIndex("SubjectId");
 
                     b.ToTable("CourseAssignments");
                 });
@@ -152,7 +150,7 @@ namespace SmartAttendance.API.Migrations
                         .HasColumnType("varchar(500)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
@@ -189,7 +187,7 @@ namespace SmartAttendance.API.Migrations
                         .HasColumnType("varchar(100)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -227,13 +225,16 @@ namespace SmartAttendance.API.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<TimeSpan>("EndTime")
                         .HasColumnType("time(6)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
@@ -253,23 +254,21 @@ namespace SmartAttendance.API.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(20)
-                        .HasColumnType("varchar(20)")
-                        .HasDefaultValue("Scheduled");
+                        .HasColumnType("varchar(20)");
 
                     b.Property<int>("TotalStudents")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseAssignmentId", "SessionDate");
+                    b.HasIndex("CourseAssignmentId");
 
                     b.ToTable("Sessions");
                 });
@@ -285,7 +284,7 @@ namespace SmartAttendance.API.Migrations
                         .HasColumnType("varchar(500)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
@@ -294,7 +293,7 @@ namespace SmartAttendance.API.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("FaceEncodingData")
-                        .HasColumnType("LONGTEXT");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -338,7 +337,7 @@ namespace SmartAttendance.API.Migrations
                         .HasColumnType("varchar(20)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -353,8 +352,6 @@ namespace SmartAttendance.API.Migrations
 
                     b.HasIndex("UserId")
                         .IsUnique();
-
-                    b.HasIndex("Stage", "StudyType", "Section");
 
                     b.ToTable("Students");
                 });
@@ -371,7 +368,7 @@ namespace SmartAttendance.API.Migrations
                         .HasColumnType("varchar(20)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
@@ -405,7 +402,7 @@ namespace SmartAttendance.API.Migrations
                         .HasColumnType("varchar(20)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -414,8 +411,6 @@ namespace SmartAttendance.API.Migrations
 
                     b.HasIndex("Code")
                         .IsUnique();
-
-                    b.HasIndex("Stage", "StudyType");
 
                     b.ToTable("Subjects");
                 });
@@ -427,9 +422,7 @@ namespace SmartAttendance.API.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime(6)")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP()");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
@@ -454,9 +447,7 @@ namespace SmartAttendance.API.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime(6)")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP()");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -485,7 +476,7 @@ namespace SmartAttendance.API.Migrations
                     b.HasOne("SmartAttendance.API.Models.Entities.Student", "Student")
                         .WithMany("AttendanceRecords")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Session");

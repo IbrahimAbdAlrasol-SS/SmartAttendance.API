@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 namespace SmartAttendance.API.Models.Entities
 {
     public class Session : BaseEntity
@@ -9,13 +10,13 @@ namespace SmartAttendance.API.Models.Entities
         public int CourseAssignmentId { get; set; }
         
         [Required]
-        public System.DateTime SessionDate { get; set; }
+        public DateTime SessionDate { get; set; }
         
         [Required]
-        public System.TimeSpan StartTime { get; set; }
+        public TimeSpan StartTime { get; set; }
         
         [Required]
-        public System.TimeSpan EndTime { get; set; }
+        public TimeSpan EndTime { get; set; }
         
         [StringLength(20)]
         public string Status { get; set; } = "Scheduled"; // Scheduled, Active, Completed, Cancelled
@@ -23,8 +24,8 @@ namespace SmartAttendance.API.Models.Entities
         [StringLength(500)]
         public string? Notes { get; set; }
         
-        public System.DateTime? ActualStartTime { get; set; }
-        public System.DateTime? ActualEndTime { get; set; }
+        public DateTime? ActualStartTime { get; set; }
+        public DateTime? ActualEndTime { get; set; }
         
         // Statistics
         public int TotalStudents { get; set; } = 0;

@@ -44,7 +44,7 @@ namespace SmartAttendance.API.Services.Implementations
                         query = query.Where(s => 
                             s.FullName.Contains(filter.SearchTerm) ||
                             s.StudentCode!.Contains(filter.SearchTerm) ||
-                            (s.User != null && s.User.Email != null && s.User.Email.Contains(filter.SearchTerm)));
+                            s.User.Email.Contains(filter.SearchTerm));
                     }
 
                     if (!string.IsNullOrWhiteSpace(filter.Stage))

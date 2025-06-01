@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.FileProviders;
 using System.Text;
 using SmartAttendance.API.Data;
+using SmartAttendance.API.Models.Entities;
 using SmartAttendance.API.Services;
 using SmartAttendance.API.Services.Interfaces;
 using SmartAttendance.API.Services.Implementations;
@@ -131,17 +132,29 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Static Files Configuration
+// Static Files and Uploads Directory Configuration
+var webRootPath = app.Environment.WebRootPath ?? "wwwroot";
+var uploadsDirectoryPath = Path.Combine(webRootPath, "uploads");
+
+// Create uploads directories if they don't exist
+if (!Directory.Exists(uploadsDirectoryPath))
+{
+    Directory.CreateDirectory(uploadsDirectoryPath);
+    Directory.CreateDirectory(Path.Combine(uploadsDirectoryPath, "faces"));
+    Directory.CreateDirectory(Path.Combine(uploadsDirectoryPath, "documents"));
+    Console.WriteLine($"📁 Created uploads directories");
+}
+
 app.UseStaticFiles();
 
-// Ensure uploads directory exists
-var uploadsPath = Path.Combine(app.Environment.WebRootPath ?? "wwwroot", "uploads");
-if (!Directory.Exists(uploadsPath))
+// Directory browser for uploads in development
+if (app.Environment.IsDevelopment() && Directory.Exists(uploadsDirectoryPath))
 {
-    Directory.CreateDirectory(uploadsPath);
-    Directory.CreateDirectory(Path.Combine(uploadsPath, "faces"));
-    Directory.CreateDirectory(Path.Combine(uploadsPath, "documents"));
-    Console.WriteLine($"📁 Created uploads directories");
+    app.UseDirectoryBrowser(new DirectoryBrowserOptions
+    {
+        FileProvider = new PhysicalFileProvider(uploadsDirectoryPath),
+        RequestPath = "/uploads"
+    });
 }
 
 // CORS
@@ -153,69 +166,59 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Database initialization with better error handling
+// Database initialization
 if (app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
     
     try
     {
         Console.WriteLine("🔄 Checking database connection...");
         
-        // Test connection first
-        var canConnect = await context.Database.CanConnectAsync();
-        if (!canConnect)
+        // Test connection
+        if (await context.Database.CanConnectAsync())
         {
-            Console.WriteLine("❌ Cannot connect to database");
-            throw new Exception("Cannot connect to database");
-        }
-        
-        Console.WriteLine("✅ Database connection successful!");
-        
-        // Check if database needs to be created
-        var isCreated = await context.Database.EnsureCreatedAsync();
-        if (isCreated)
-        {
-            Console.WriteLine("✅ Database created successfully!");
+            Console.WriteLine("✅ Database connection successful!");
         }
         else
         {
-            Console.WriteLine("ℹ️ Database already exists");
-            
-            // Apply pending migrations if any
-            var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
-            if (pendingMigrations.Any())
-            {
-                Console.WriteLine("🔄 Applying pending migrations...");
-                await context.Database.MigrateAsync();
-                Console.WriteLine("✅ Migrations applied successfully!");
-            }
+            throw new Exception("Cannot connect to database");
         }
-        
-        // Seed data
-        await SeedInitialData(context);
-        
+
+        // Apply pending migrations first
+        var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
+        if (pendingMigrations.Any())
+        {
+            Console.WriteLine("🔄 Applying pending migrations...");
+            await context.Database.MigrateAsync();
+            Console.WriteLine("✅ Migrations applied successfully!");
+        }
+        else
+        {
+            Console.WriteLine("ℹ️ No pending migrations");
+        }
+
+        // Seed admin user
+        await SeedAdminUser(context);
     }
     catch (Exception ex)
     {
         Console.WriteLine($"❌ Database error: {ex.Message}");
-        logger.LogError(ex, "Database initialization failed");
         
-        // Try to recreate database if it failed
         try
         {
             Console.WriteLine("🔄 Attempting to recreate database...");
             await context.Database.EnsureDeletedAsync();
-            await context.Database.EnsureCreatedAsync();
-            await SeedInitialData(context);
+            await context.Database.MigrateAsync();
             Console.WriteLine("✅ Database recreated successfully!");
+            
+            // Seed admin user after recreation
+            await SeedAdminUser(context);
         }
         catch (Exception recreateEx)
         {
             Console.WriteLine($"❌ Failed to recreate database: {recreateEx.Message}");
-            logger.LogError(recreateEx, "Database recreation failed");
         }
     }
 }
@@ -226,28 +229,27 @@ Console.WriteLine($"🌐 HTTP: http://localhost:5001");
 
 app.Run();
 
-// Helper method for seeding data
-async Task SeedInitialData(ApplicationDbContext context)
+// Helper method for seeding admin user
+async Task SeedAdminUser(ApplicationDbContext context)
 {
     try
     {
-        // Check if admin user exists
-        var adminExists = await context.Users.AnyAsync(u => u.Email == "admin@bologna.edu.iq");
+        var adminExists = await context.Users.AnyAsync(u => !u.IsDeleted && u.Email == "admin@bologna.edu.iq");
         
         if (!adminExists)
         {
-            var adminUser = new SmartAttendance.API.Models.Entities.User
+            var adminUser = new User
             {
                 Email = "admin@bologna.edu.iq",
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin2024!"),
-                UserType = SmartAttendance.API.Constants.UserRoles.Admin,
+                UserType = "Admin",
                 IsActive = true,
                 EmailVerified = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
             };
-            
-            context.Users.Add(adminUser);
+
+            await context.Users.AddAsync(adminUser);
             await context.SaveChangesAsync();
             
             Console.WriteLine("👤 Admin user created:");
@@ -256,7 +258,7 @@ async Task SeedInitialData(ApplicationDbContext context)
         }
         else
         {
-            Console.WriteLine("👤 Admin user already exists");
+            Console.WriteLine("ℹ️ Admin user already exists");
         }
         
         Console.WriteLine("✅ Initial data seeding completed!");
