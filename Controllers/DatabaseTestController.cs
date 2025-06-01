@@ -23,12 +23,12 @@ namespace SmartAttendance.API.Controllers
             try
             {
                 var canConnect = await _context.Database.CanConnectAsync();
-                
+
                 if (canConnect)
                 {
                     var pendingMigrations = await _context.Database.GetPendingMigrationsAsync();
                     var appliedMigrations = await _context.Database.GetAppliedMigrationsAsync();
-                    
+
                     return Ok(new
                     {
                         success = true,
@@ -108,92 +108,230 @@ namespace SmartAttendance.API.Controllers
                     });
                 }
 
-                // Create test admin user
+                // 1. إنشاء المستخدمين
                 var adminUser = new User
                 {
-                    Email = "admin@smartattendance.com",
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin123!"),
+                    Email = "admin@engineering.edu.iq",
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin2024!"),
                     UserType = UserRoles.Admin,
                     IsActive = true,
                     EmailVerified = true
                 };
 
-                // Create test student user
-                var studentUser = new User
+                var profUser1 = new User
                 {
-                    Email = "student@test.com",
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("Student123!"),
-                    UserType = UserRoles.Student,
-                    IsActive = true,
-                    EmailVerified = true
-                };
-
-                // Create test professor user
-                var professorUser = new User
-                {
-                    Email = "professor@test.com",
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("Professor123!"),
+                    Email = "dr.omar@engineering.edu.iq",
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("Prof2024!"),
                     UserType = UserRoles.Professor,
                     IsActive = true,
                     EmailVerified = true
                 };
 
-                await _context.Users.AddRangeAsync(adminUser, studentUser, professorUser);
+                var profUser2 = new User
+                {
+                    Email = "dr.sara@engineering.edu.iq",
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("Prof2024!"),
+                    UserType = UserRoles.Professor,
+                    IsActive = true,
+                    EmailVerified = true
+                };
+
+                var studentUser1 = new User
+                {
+                    Email = "ahmed.ali@student.edu.iq",
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("Student2024!"),
+                    UserType = UserRoles.Student,
+                    IsActive = true,
+                    EmailVerified = true
+                };
+
+                var studentUser2 = new User
+                {
+                    Email = "fatima.mohammed@student.edu.iq",
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("Student2024!"),
+                    UserType = UserRoles.Student,
+                    IsActive = true,
+                    EmailVerified = true
+                };
+
+                var studentUser3 = new User
+                {
+                    Email = "omar.khalil@student.edu.iq",
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("Student2024!"),
+                    UserType = UserRoles.Student,
+                    IsActive = true,
+                    EmailVerified = true
+                };
+
+                await _context.Users.AddRangeAsync(adminUser, profUser1, profUser2, studentUser1, studentUser2, studentUser3);
                 await _context.SaveChangesAsync();
 
-                // Create test student
-                var student = new Student
+                // 2. إنشاء الأساتذة
+                var professor1 = new Professor
                 {
-                    UserId = studentUser.Id,
-                    StudentCode = "2024001",
-                    FullName = "أحمد محمد علي",
-                    Stage = "First",
-                    StudyType = "Morning",
-                    Section = "A",
-                    Phone = "07801234567",
+                    UserId = profUser1.Id,
+                    EmployeeCode = "ENG001",
+                    FullName = "د. عمر حسين البصري",
+                    Department = "علوم الحاسوب",
+                    Title = "Dr.",
+                    Phone = "07701234567",
                     IsActive = true
                 };
 
-                // Create test professor
-                var professor = new Professor
+                var professor2 = new Professor
                 {
-                    UserId = professorUser.Id,
-                    EmployeeCode = "EMP001",
-                    FullName = "د. سارة أحمد",
+                    UserId = profUser2.Id,
+                    EmployeeCode = "ENG002",
+                    FullName = "د. سارة علي الكربلائي",
                     Department = "علوم الحاسوب",
                     Title = "Dr.",
                     Phone = "07709876543",
                     IsActive = true
                 };
 
-                // Create test subject
-                var subject = new Subject
+                await _context.Professors.AddRangeAsync(professor1, professor2);
+                await _context.SaveChangesAsync();
+
+                // 3. إنشاء الطلاب
+                var student1 = new Student
                 {
-                    Name = "برمجة الحاسوب",
+                    UserId = studentUser1.Id,
+                    StudentCode = "CS2024001",
+                    FullName = "أحمد علي حسن",
+                    Stage = "First",
+                    StudyType = "Morning",
+                    Section = "A",
+                    Phone = "07801234567",
+                    DateOfBirth = new DateTime(2005, 3, 15),
+                    IsActive = true
+                };
+
+                var student2 = new Student
+                {
+                    UserId = studentUser2.Id,
+                    StudentCode = "CS2024002",
+                    FullName = "فاطمة محمد جاسم",
+                    Stage = "First",
+                    StudyType = "Morning",
+                    Section = "A",
+                    Phone = "07807654321",
+                    DateOfBirth = new DateTime(2005, 7, 22),
+                    IsActive = true
+                };
+
+                var student3 = new Student
+                {
+                    UserId = studentUser3.Id,
+                    StudentCode = "CS2024003",
+                    FullName = "عمر خليل إبراهيم",
+                    Stage = "First",
+                    StudyType = "Morning",
+                    Section = "B",
+                    Phone = "07811122334",
+                    DateOfBirth = new DateTime(2005, 11, 8),
+                    IsActive = true
+                };
+
+                await _context.Students.AddRangeAsync(student1, student2, student3);
+                await _context.SaveChangesAsync();
+
+                // 4. إنشاء المواد
+                var subject1 = new Subject
+                {
+                    Name = "مقدمة في البرمجة",
                     Code = "CS101",
                     Stage = "First",
                     StudyType = "Morning",
                     CreditHours = 3,
-                    Description = "مقدمة في برمجة الحاسوب",
+                    Description = "أساسيات البرمجة باستخدام C++",
                     IsActive = true
                 };
 
-                await _context.Students.AddAsync(student);
-                await _context.Professors.AddAsync(professor);
-                await _context.Subjects.AddAsync(subject);
+                var subject2 = new Subject
+                {
+                    Name = "هياكل البيانات",
+                    Code = "CS201",
+                    Stage = "Second",
+                    StudyType = "Morning",
+                    CreditHours = 4,
+                    Description = "دراسة هياكل البيانات والخوارزميات",
+                    IsActive = true
+                };
+
+                await _context.Subjects.AddRangeAsync(subject1, subject2);
+                await _context.SaveChangesAsync();
+
+                // 5. إنشاء تخصيص المواد
+                var courseAssignment1 = new CourseAssignment
+                {
+                    ProfessorId = professor1.Id,
+                    SubjectId = subject1.Id,
+                    Section = "A",
+                    AcademicYear = "2024-2025",
+                    Semester = "الفصل الأول",
+                    IsActive = true
+                };
+
+                await _context.CourseAssignments.AddAsync(courseAssignment1);
+                await _context.SaveChangesAsync();
+
+                // 6. إنشاء جلسات
+                var session1 = new Session
+                {
+                    CourseAssignmentId = courseAssignment1.Id,
+                    SessionDate = DateTime.Today,
+                    StartTime = new TimeSpan(8, 0, 0),
+                    EndTime = new TimeSpan(10, 0, 0),
+                    Status = SessionStatus.Scheduled,
+                    Notes = "محاضرة المتغيرات والثوابت"
+                };
+
+                await _context.Sessions.AddAsync(session1);
+                await _context.SaveChangesAsync();
+
+                // 7. إنشاء سجلات حضور
+                var attendance1 = new AttendanceRecord
+                {
+                    SessionId = session1.Id,
+                    StudentId = student1.Id,
+                    AttendanceStatus = AttendanceStatus.Present,
+                    DetectionMethod = DetectionMethods.Manual,
+                    EntryTime = DateTime.Now,
+                    Notes = "حضر في الوقت المحدد"
+                };
+
+                var attendance2 = new AttendanceRecord
+                {
+                    SessionId = session1.Id,
+                    StudentId = student2.Id,
+                    AttendanceStatus = AttendanceStatus.Late,
+                    DetectionMethod = DetectionMethods.Manual,
+                    EntryTime = DateTime.Now.AddMinutes(15),
+                    Notes = "تأخر 15 دقيقة"
+                };
+
+                await _context.AttendanceRecords.AddRangeAsync(attendance1, attendance2);
                 await _context.SaveChangesAsync();
 
                 return Ok(new
                 {
                     success = true,
-                    message = "✅ تم إنشاء البيانات التجريبية بنجاح!",
+                    message = "✅ تم إنشاء البيانات التجريبية الحقيقية بنجاح!",
                     data = new
                     {
-                        adminEmail = adminUser.Email,
-                        studentEmail = studentUser.Email,
-                        professorEmail = professorUser.Email,
-                        studentCode = student.StudentCode,
-                        subjectCode = subject.Code
+                        users = 6,
+                        professors = 2,
+                        students = 3,
+                        subjects = 2,
+                        courseAssignments = 1,
+                        sessions = 1,
+                        attendanceRecords = 2,
+                        testAccounts = new
+                        {
+                            admin = new { email = adminUser.Email, password = "Admin2024!" },
+                            professor = new { email = profUser1.Email, password = "Prof2024!" },
+                            student = new { email = studentUser1.Email, password = "Student2024!" }
+                        }
                     }
                 });
             }

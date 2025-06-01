@@ -1,0 +1,142 @@
+[
+  {
+    "ContainingType": "SmartAttendance.API.Controllers.ConnectionTestController",
+    "Method": "TestEntityFramework",
+    "RelativePath": "api/ConnectionTest/ef-test",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartAttendance.API.Controllers.ConnectionTestController",
+    "Method": "Health",
+    "RelativePath": "api/ConnectionTest/health",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartAttendance.API.Controllers.ConnectionTestController",
+    "Method": "TestMySQLRaw",
+    "RelativePath": "api/ConnectionTest/mysql-raw",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartAttendance.API.Controllers.DatabaseTestController",
+    "Method": "TestDatabaseConnection",
+    "RelativePath": "api/DatabaseTest/connection-test",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartAttendance.API.Controllers.DatabaseTestController",
+    "Method": "GetDatabaseInfo",
+    "RelativePath": "api/DatabaseTest/database-info",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartAttendance.API.Controllers.DatabaseTestController",
+    "Method": "SeedTestData",
+    "RelativePath": "api/DatabaseTest/seed-test-data",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartAttendance.API.Controllers.DatabaseTestController",
+    "Method": "TestDatabaseTables",
+    "RelativePath": "api/DatabaseTest/tables-test",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartAttendance.API.Controllers.MySQLTestController",
+    "Method": "TestConnection",
+    "RelativePath": "api/MySQLTest/test-connection",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartAttendance.API.Controllers.TestController",
+    "Method": "TestConstants",
+    "RelativePath": "api/Test/constants-test",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartAttendance.API.Controllers.TestController",
+    "Method": "TestEntityRelationships",
+    "RelativePath": "api/Test/entities-relationships",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartAttendance.API.Controllers.TestController",
+    "Method": "HealthCheck",
+    "RelativePath": "api/Test/health",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartAttendance.API.Controllers.TestController",
+    "Method": "TestModels",
+    "RelativePath": "api/Test/models-test",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartAttendance.API.Controllers.TestController",
+    "Method": "TestPackages",
+    "RelativePath": "api/Test/packages-test",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartAttendance.API.Controllers.TestController",
+    "Method": "TestValidations",
+    "RelativePath": "api/Test/validation-test",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]
