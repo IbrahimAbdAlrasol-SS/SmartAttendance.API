@@ -1,53 +1,46 @@
 using Microsoft.EntityFrameworkCore;
 using SmartAttendance.API.Models.Entities;
-using System.Linq.Expressions;
 
 namespace SmartAttendance.API.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
         {
         }
 
-        // DbSets
         public DbSet<User> Users { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Professor> Professors { get; set; }
         public DbSet<Subject> Subjects { get; set; }
-        public DbSet<CourseAssignment> CourseAssignments { get; set; }
-        public DbSet<Session> Sessions { get; set; }
         public DbSet<AttendanceRecord> AttendanceRecords { get; set; }
+        public DbSet<Session> Sessions { get; set; }
+        public DbSet<CourseAssignment> CourseAssignments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
-            // Apply configurations
-            ApplyEntityConfigurations(modelBuilder);
-            
-            // Apply global query filters for soft delete
-            ApplyGlobalQueryFilters(modelBuilder);
-        }
 
-        private void ApplyEntityConfigurations(ModelBuilder modelBuilder)
-        {
-            // User Configuration
+            // User configuration
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.Id);
+                entity.HasIndex(e => e.Email).IsUnique();
                 entity.Property(e => e.Email).IsRequired().HasMaxLength(255);
                 entity.Property(e => e.PasswordHash).IsRequired().HasMaxLength(255);
                 entity.Property(e => e.UserType).IsRequired().HasMaxLength(20);
-                entity.HasIndex(e => e.Email).IsUnique();
-                entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP()");
-                entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP()");
+                
+                // Remove default value constraints
+                entity.Property(e => e.CreatedAt).IsRequired();
+                entity.Property(e => e.UpdatedAt).IsRequired();
             });
 
-            // Student Configuration
+            // Student configuration
             modelBuilder.Entity<Student>(entity =>
             {
                 entity.HasKey(e => e.Id);
+                entity.HasIndex(e => e.StudentCode).IsUnique();
                 entity.Property(e => e.StudentCode).HasMaxLength(20);
                 entity.Property(e => e.FullName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Stage).IsRequired().HasMaxLength(20);
@@ -56,23 +49,19 @@ namespace SmartAttendance.API.Data
                 entity.Property(e => e.Phone).HasMaxLength(15);
                 entity.Property(e => e.Address).HasMaxLength(500);
                 entity.Property(e => e.ProfileImage).HasMaxLength(255);
-                entity.Property(e => e.FaceEncodingData).HasColumnType("LONGTEXT");
                 
-                // Index for faster searches
-                entity.HasIndex(e => e.StudentCode).IsUnique();
-                entity.HasIndex(e => new { e.Stage, e.StudyType, e.Section });
-                
-                // Relationship with User
-                entity.HasOne(s => s.User)
+                // Foreign key
+                entity.HasOne(e => e.User)
                       .WithOne(u => u.Student)
-                      .HasForeignKey<Student>(s => s.UserId)
+                      .HasForeignKey<Student>(e => e.UserId)
                       .OnDelete(DeleteBehavior.Cascade);
             });
 
-            // Professor Configuration
+            // Professor configuration  
             modelBuilder.Entity<Professor>(entity =>
             {
                 entity.HasKey(e => e.Id);
+                entity.HasIndex(e => e.EmployeeCode).IsUnique();
                 entity.Property(e => e.EmployeeCode).HasMaxLength(20);
                 entity.Property(e => e.FullName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Department).HasMaxLength(100);
@@ -81,32 +70,26 @@ namespace SmartAttendance.API.Data
                 entity.Property(e => e.Bio).HasMaxLength(500);
                 entity.Property(e => e.ProfileImage).HasMaxLength(255);
                 
-                // Index
-                entity.HasIndex(e => e.EmployeeCode).IsUnique();
-                
-                // Relationship with User
-                entity.HasOne(p => p.User)
+                // Foreign key
+                entity.HasOne(e => e.User)
                       .WithOne(u => u.Professor)
-                      .HasForeignKey<Professor>(p => p.UserId)
+                      .HasForeignKey<Professor>(e => e.UserId)
                       .OnDelete(DeleteBehavior.Cascade);
             });
 
-            // Subject Configuration
+            // Subject configuration
             modelBuilder.Entity<Subject>(entity =>
             {
                 entity.HasKey(e => e.Id);
+                entity.HasIndex(e => e.Code).IsUnique();
                 entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Code).IsRequired().HasMaxLength(20);
                 entity.Property(e => e.Stage).IsRequired().HasMaxLength(20);
                 entity.Property(e => e.StudyType).IsRequired().HasMaxLength(20);
                 entity.Property(e => e.Description).HasMaxLength(500);
-                
-                // Index
-                entity.HasIndex(e => e.Code).IsUnique();
-                entity.HasIndex(e => new { e.Stage, e.StudyType });
             });
 
-            // CourseAssignment Configuration
+            // CourseAssignment configuration
             modelBuilder.Entity<CourseAssignment>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -114,116 +97,77 @@ namespace SmartAttendance.API.Data
                 entity.Property(e => e.AcademicYear).IsRequired().HasMaxLength(20);
                 entity.Property(e => e.Semester).IsRequired().HasMaxLength(20);
                 
-                // Relationships
-                entity.HasOne(ca => ca.Professor)
-                      .WithMany(p => p.CourseAssignments)
-                      .HasForeignKey(ca => ca.ProfessorId)
+                // Foreign keys
+                entity.HasOne(e => e.Subject)
+                      .WithMany()
+                      .HasForeignKey(e => e.SubjectId)
                       .OnDelete(DeleteBehavior.Restrict);
                       
-                entity.HasOne(ca => ca.Subject)
-                      .WithMany(s => s.CourseAssignments)
-                      .HasForeignKey(ca => ca.SubjectId)
+                entity.HasOne(e => e.Professor)
+                      .WithMany()
+                      .HasForeignKey(e => e.ProfessorId)
                       .OnDelete(DeleteBehavior.Restrict);
-                
-                // Index for unique constraint
-                entity.HasIndex(e => new { e.ProfessorId, e.SubjectId, e.Section, e.AcademicYear, e.Semester })
-                      .IsUnique();
             });
 
-            // Session Configuration
+            // Session configuration
             modelBuilder.Entity<Session>(entity =>
             {
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.Status).HasMaxLength(20).HasDefaultValue("Scheduled");
+                entity.Property(e => e.SessionDate).IsRequired();
+                entity.Property(e => e.StartTime).IsRequired();
+                entity.Property(e => e.EndTime).IsRequired();
+                entity.Property(e => e.Status).HasMaxLength(20);
                 entity.Property(e => e.Notes).HasMaxLength(500);
                 
-                // Relationship
-                entity.HasOne(s => s.CourseAssignment)
+                // Foreign key
+                entity.HasOne(e => e.CourseAssignment)
                       .WithMany(ca => ca.Sessions)
-                      .HasForeignKey(s => s.CourseAssignmentId)
+                      .HasForeignKey(e => e.CourseAssignmentId)
                       .OnDelete(DeleteBehavior.Cascade);
-                
-                // Index
-                entity.HasIndex(e => new { e.CourseAssignmentId, e.SessionDate });
             });
 
-            // AttendanceRecord Configuration
+            // AttendanceRecord configuration
             modelBuilder.Entity<AttendanceRecord>(entity =>
             {
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.AttendanceStatus).IsRequired().HasMaxLength(20).HasDefaultValue("Absent");
-                entity.Property(e => e.DetectionMethod).IsRequired().HasMaxLength(20).HasDefaultValue("Manual");
+                entity.Property(e => e.AttendanceStatus).IsRequired().HasMaxLength(20);
+                entity.Property(e => e.DetectionMethod).IsRequired().HasMaxLength(20);
                 entity.Property(e => e.Notes).HasMaxLength(500);
                 
-                // Relationships
-                entity.HasOne(ar => ar.Session)
-                      .WithMany(s => s.AttendanceRecords)
-                      .HasForeignKey(ar => ar.SessionId)
+                // Foreign keys
+                entity.HasOne(e => e.Student)
+                      .WithMany()
+                      .HasForeignKey(e => e.StudentId)
                       .OnDelete(DeleteBehavior.Cascade);
                       
-                entity.HasOne(ar => ar.Student)
+                entity.HasOne(e => e.Session)
                       .WithMany(s => s.AttendanceRecords)
-                      .HasForeignKey(ar => ar.StudentId)
+                      .HasForeignKey(e => e.SessionId)
                       .OnDelete(DeleteBehavior.Cascade);
-                
-                // Index for unique constraint (one record per student per session)
-                entity.HasIndex(e => new { e.SessionId, e.StudentId }).IsUnique();
             });
         }
 
-        private void ApplyGlobalQueryFilters(ModelBuilder modelBuilder)
-        {
-            // Apply soft delete filter to all entities that inherit from BaseEntity
-            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
-            {
-                if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType))
-                {
-                    modelBuilder.Entity(entityType.ClrType)
-                        .HasQueryFilter(GetSoftDeleteFilter(entityType.ClrType));
-                }
-            }
-        }
-
-        private static LambdaExpression GetSoftDeleteFilter(Type entityType)
-        {
-            var parameter = Expression.Parameter(entityType, "e");
-            var property = Expression.Property(parameter, nameof(BaseEntity.IsDeleted));
-            var condition = Expression.Equal(property, Expression.Constant(false));
-            return Expression.Lambda(condition, parameter);
-        }
-
-        // Override SaveChanges to automatically set audit fields
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            UpdateAuditFields();
-            return await base.SaveChangesAsync(cancellationToken);
-        }
+            var entries = ChangeTracker
+                .Entries()
+                .Where(e => e.Entity is Models.BaseEntity && (
+                        e.State == EntityState.Added
+                        || e.State == EntityState.Modified));
 
-        public override int SaveChanges()
-        {
-            UpdateAuditFields();
-            return base.SaveChanges();
-        }
-
-        private void UpdateAuditFields()
-        {
-            var entries = ChangeTracker.Entries<BaseEntity>();
-
-            foreach (var entry in entries)
+            foreach (var entityEntry in entries)
             {
-                switch (entry.State)
+                var entity = (Models.BaseEntity)entityEntry.Entity;
+                
+                if (entityEntry.State == EntityState.Added)
                 {
-                    case EntityState.Added:
-                        entry.Entity.CreatedAt = DateTime.UtcNow;
-                        entry.Entity.UpdatedAt = DateTime.UtcNow;
-                        break;
-                    case EntityState.Modified:
-                        entry.Entity.UpdatedAt = DateTime.UtcNow;
-                        // Don't update CreatedAt
-                        entry.Property(nameof(BaseEntity.CreatedAt)).IsModified = false;
-                        break;
+                    entity.CreatedAt = DateTime.UtcNow;
                 }
+                
+                entity.UpdatedAt = DateTime.UtcNow;
             }
+
+            return await base.SaveChangesAsync(cancellationToken);
         }
     }
 }

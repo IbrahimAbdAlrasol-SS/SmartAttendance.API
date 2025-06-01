@@ -1,16 +1,17 @@
 using System.ComponentModel.DataAnnotations;
-using System.Linq.Expressions;
 
-namespace SmartAttendance.API.Models.Entities
+namespace SmartAttendance.API.Models
 {
     public abstract class BaseEntity
     {
         [Key]
         public int Id { get; set; }
         
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public bool IsActive { get; set; } = true;
         
-        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; }
+        
+        public DateTime UpdatedAt { get; set; }
         
         public bool IsDeleted { get; set; } = false;
         

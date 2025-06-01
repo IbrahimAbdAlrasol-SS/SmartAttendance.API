@@ -16,7 +16,7 @@ namespace SmartAttendance.API.Models.Entities
         [MaxLength(20)]
         public string UserType { get; set; } = string.Empty;
         
-        public bool IsActive { get; set; } = true;
+        public new bool IsActive { get; set; } = true;
         public bool EmailVerified { get; set; } = false;
         
         // Navigation Properties

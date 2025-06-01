@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "sUwvlDWFIQQ=",
+  "dgSpecHash": "IxP67hr2CDI=",
   "success": true,
-  "projectFilePath": "F:\\stage3\\SmartAttendanceSystem\\SmartAttendance.API\\SmartAttendance.API.csproj",
+  "projectFilePath": "F:\\Stage4\\SmartAttendance.API\\SmartAttendance.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Zeus\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\Zeus\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
@@ -81,9 +81,9 @@
       "code": "NU1603",
       "level": "Warning",
       "message": "SmartAttendance.API depends on Serilog.AspNetCore (>= 8.0.4) but Serilog.AspNetCore 8.0.4 was not found. Serilog.AspNetCore 9.0.0 was resolved instead.",
-      "projectPath": "F:\\stage3\\SmartAttendanceSystem\\SmartAttendance.API\\SmartAttendance.API.csproj",
+      "projectPath": "F:\\Stage4\\SmartAttendance.API\\SmartAttendance.API.csproj",
       "warningLevel": 1,
-      "filePath": "F:\\stage3\\SmartAttendanceSystem\\SmartAttendance.API\\SmartAttendance.API.csproj",
+      "filePath": "F:\\Stage4\\SmartAttendance.API\\SmartAttendance.API.csproj",
       "libraryId": "Serilog.AspNetCore",
       "targetGraphs": [
         "net9.0"

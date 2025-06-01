@@ -39,7 +39,7 @@ namespace SmartAttendance.API.Models.Entities
         [StringLength(255)]
         public string? ProfileImage { get; set; }
         
-        public bool IsActive { get; set; } = true;
+        public new bool IsActive { get; set; } = true;
         
         // Face Recognition Data
         public string? FaceEncodingData { get; set; }

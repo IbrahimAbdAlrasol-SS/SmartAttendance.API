@@ -189,47 +189,33 @@ namespace SmartAttendance.API.Controllers
         /// </summary>
         [HttpGet("validate-token")]
         [Authorize]
-        public async Task<ActionResult<ApiResponse<object>>> ValidateToken()
+        // Either remove async:
+        public ActionResult<ApiResponse<object>> ValidateToken()
         {
-            var userId = GetCurrentUserId();
-            var userEmail = GetCurrentUserEmail();
-            var userType = GetCurrentUserType();
-
-            if (userId == null)
-            {
-                return Unauthorized(ApiResponse<object>.ErrorResult(
-                    "رمز مميز غير صالح", 
-                    statusCode: 401));
-            }
-
-            return Ok(ApiResponse<object>.SuccessResult(new
-            {
-                userId = userId.Value,
-                email = userEmail,
-                userType = userType,
-                isValid = true,
-                validatedAt = DateTime.UtcNow
-            }, "الرمز المميز صالح"));
+            return Ok(ApiResponse<object>.SuccessResult(new { valid = true }, "Token is valid"));
         }
+        
+        // Or add await operations if needed:
+        
 
         /// <summary>
         /// جلب معلومات المستخدم الأساسية
         /// </summary>
         [HttpGet("me")]
         [Authorize]
-        public async Task<ActionResult<ApiResponse<object>>> GetCurrentUserInfo()
+        public ActionResult<ApiResponse<object>> GetCurrentUserInfo()
         {
             var userId = GetCurrentUserId();
             var userEmail = GetCurrentUserEmail();
             var userType = GetCurrentUserType();
-
+        
             if (userId == null)
             {
                 return Unauthorized(ApiResponse<object>.ErrorResult(
                     "غير مصرح لك بالوصول", 
                     statusCode: 401));
             }
-
+        
             return Ok(ApiResponse<object>.SuccessResult(new
             {
                 id = userId.Value,

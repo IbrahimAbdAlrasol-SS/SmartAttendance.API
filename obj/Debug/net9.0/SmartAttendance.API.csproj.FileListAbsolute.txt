@@ -124,3 +124,15 @@ F:\stage3\SmartAttendanceSystem\SmartAttendance.API\obj\Debug\net9.0\refint\Smar
 F:\stage3\SmartAttendanceSystem\SmartAttendance.API\obj\Debug\net9.0\SmartAttendance.API.pdb
 F:\stage3\SmartAttendanceSystem\SmartAttendance.API\obj\Debug\net9.0\SmartAttendance.API.genruntimeconfig.cache
 F:\stage3\SmartAttendanceSystem\SmartAttendance.API\obj\Debug\net9.0\ref\SmartAttendance.API.dll
+F:\Stage4\SmartAttendance.API\obj\Debug\net9.0\SmartAttendance.API.csproj.AssemblyReference.cache
+F:\Stage4\SmartAttendance.API\obj\Debug\net9.0\SmartAttendance.API.GeneratedMSBuildEditorConfig.editorconfig
+F:\Stage4\SmartAttendance.API\obj\Debug\net9.0\SmartAttendance.API.AssemblyInfoInputs.cache
+F:\Stage4\SmartAttendance.API\obj\Debug\net9.0\SmartAttendance.API.AssemblyInfo.cs
+F:\Stage4\SmartAttendance.API\obj\Debug\net9.0\SmartAttendance.API.csproj.CoreCompileInputs.cache
+F:\Stage4\SmartAttendance.API\obj\Debug\net9.0\SmartAttendance.API.MvcApplicationPartsAssemblyInfo.cs
+F:\Stage4\SmartAttendance.API\obj\Debug\net9.0\SmartAttendance.API.MvcApplicationPartsAssemblyInfo.cache
+F:\Stage4\SmartAttendance.API\obj\Debug\net9.0\SmartAttendance.API.sourcelink.json
+F:\Stage4\SmartAttendance.API\obj\Debug\net9.0\scopedcss\bundle\SmartAttendance.API.styles.css
+F:\Stage4\SmartAttendance.API\obj\Debug\net9.0\SmartAttendance.API.dll
+F:\Stage4\SmartAttendance.API\obj\Debug\net9.0\refint\SmartAttendance.API.dll
+F:\Stage4\SmartAttendance.API\obj\Debug\net9.0\SmartAttendance.API.pdb
