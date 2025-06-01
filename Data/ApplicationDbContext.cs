@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SmartAttendance.API.Models.Entities;
 using System.Linq.Expressions;
+
 namespace SmartAttendance.API.Data
 {
     public class ApplicationDbContext : DbContext
@@ -19,12 +20,15 @@ namespace SmartAttendance.API.Data
         public DbSet<AttendanceRecord> AttendanceRecords { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-                {
-                    base.OnModelCreating(modelBuilder);
-                    
-                    // Apply configurations
-                    ApplyEntityConfigurations(modelBuilder);
-                }
+        {
+            base.OnModelCreating(modelBuilder);
+            
+            // Apply configurations
+            ApplyEntityConfigurations(modelBuilder);
+            
+            // Apply global query filters for soft delete
+            ApplyGlobalQueryFilters(modelBuilder);
+        }
 
         private void ApplyEntityConfigurations(ModelBuilder modelBuilder)
         {
@@ -36,8 +40,8 @@ namespace SmartAttendance.API.Data
                 entity.Property(e => e.PasswordHash).IsRequired().HasMaxLength(255);
                 entity.Property(e => e.UserType).IsRequired().HasMaxLength(20);
                 entity.HasIndex(e => e.Email).IsUnique();
-                entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
-                entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP()");
+                entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP()");
             });
 
             // Student Configuration
@@ -180,12 +184,12 @@ namespace SmartAttendance.API.Data
             }
         }
 
-        private static System.Linq.Expressions.LambdaExpression GetSoftDeleteFilter(Type entityType)
+        private static LambdaExpression GetSoftDeleteFilter(Type entityType)
         {
-            var parameter = System.Linq.Expressions.Expression.Parameter(entityType, "e");
+            var parameter = Expression.Parameter(entityType, "e");
             var property = Expression.Property(parameter, nameof(BaseEntity.IsDeleted));
             var condition = Expression.Equal(property, Expression.Constant(false));
-            return System.Linq.Expressions.Expression.Lambda(condition, parameter);
+            return Expression.Lambda(condition, parameter);
         }
 
         // Override SaveChanges to automatically set audit fields
@@ -215,6 +219,8 @@ namespace SmartAttendance.API.Data
                         break;
                     case EntityState.Modified:
                         entry.Entity.UpdatedAt = DateTime.UtcNow;
+                        // Don't update CreatedAt
+                        entry.Property(nameof(BaseEntity.CreatedAt)).IsModified = false;
                         break;
                 }
             }
