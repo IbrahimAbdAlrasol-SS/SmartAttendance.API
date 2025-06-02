@@ -124,3 +124,5 @@ F:\Stage4\SmartAttendance.API\obj\Debug\net9.0\refint\SmartAttendance.API.dll
 F:\Stage4\SmartAttendance.API\obj\Debug\net9.0\SmartAttendance.API.pdb
 F:\Stage4\SmartAttendance.API\obj\Debug\net9.0\SmartAttendance.API.genruntimeconfig.cache
 F:\Stage4\SmartAttendance.API\obj\Debug\net9.0\ref\SmartAttendance.API.dll
+F:\Stage4\SmartAttendance.API\bin\Debug\net9.0\Postman\Tests.postman_collection.json
+F:\Stage4\SmartAttendance.API\obj\Debug\net9.0\compressed\6h575rwrkv-5ipweew5fc.gz

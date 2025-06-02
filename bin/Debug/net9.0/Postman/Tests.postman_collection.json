@@ -1,0 +1,515 @@
+{
+    "info": {
+      "_postman_id": "1e2d3f4a-5b6c-7d8e-9f0a-1b2c3d4e5f6a",
+      "name": "SmartAttendance API Tests",
+      "description": "اختبارات لنظام الحضور الذكي",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "1. اختبارات الاتصال",
+        "item": [
+          {
+            "name": "1.1 اختبار الحالة الصحية",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/health",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "health"]
+              }
+            }
+          },
+          {
+            "name": "1.2 اختبار الاتصال بقاعدة البيانات",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/connection/database",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "connection", "database"]
+              }
+            }
+          },
+          {
+            "name": "1.3 اختبار اتصال MySQL",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/connection/mysql",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "connection", "mysql"]
+              }
+            }
+          },
+          {
+            "name": "1.4 اختبار Entity Framework",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/connection/ef",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "connection", "ef"]
+              }
+            }
+          },
+          {
+            "name": "1.5 اختبار جداول قاعدة البيانات",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/connection/tables",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "connection", "tables"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "2. اختبارات الخدمات",
+        "item": [
+          {
+            "name": "2.1 اختبار توفر الخدمات",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/services/health",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "services", "health"]
+              }
+            }
+          },
+          {
+            "name": "2.2 اختبار خدمة JWT",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/services/jwt",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "services", "jwt"]
+              }
+            }
+          },
+          {
+            "name": "2.3 اختبار خدمة AutoMapper",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/services/mapper",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "services", "mapper"]
+              }
+            }
+          },
+          {
+            "name": "2.4 اختبار خدمة المستخدمين",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/services/user",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "services", "user"]
+              }
+            }
+          },
+          {
+            "name": "2.5 اختبار خدمة المصادقة",
+            "request": {
+              "method": "POST",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/services/auth",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "services", "auth"]
+              }
+            }
+          },
+          {
+            "name": "2.6 تشغيل جميع اختبارات الخدمات",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/services/all",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "services", "all"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "3. اختبارات البيانات",
+        "item": [
+          {
+            "name": "3.1 تهيئة بيانات الاختبار",
+            "request": {
+              "method": "POST",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/data/seed",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "data", "seed"]
+              }
+            }
+          },
+          {
+            "name": "3.2 جلب معلومات قاعدة البيانات",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/data/info",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "data", "info"]
+              }
+            }
+          },
+          {
+            "name": "3.3 حذف بيانات الاختبار",
+            "request": {
+              "method": "POST",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/data/clear",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "data", "clear"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "4. اختبارات النماذج",
+        "item": [
+          {
+            "name": "4.1 اختبار النماذج",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/models/entity-test",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "models", "entity-test"]
+              }
+            }
+          },
+          {
+            "name": "4.2 اختبار الحزم البرمجية",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/models/packages-test",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "models", "packages-test"]
+              }
+            }
+          },
+          {
+            "name": "4.3 اختبار الثوابت",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/models/constants-test",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "models", "constants-test"]
+              }
+            }
+          },
+          {
+            "name": "4.4 اختبار العلاقات بين الكيانات",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/models/relationships-test",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "models", "relationships-test"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "5. اختبارات API",
+        "item": [
+          {
+            "name": "5.1 اختبار مسار التسجيل والمصادقة",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/api/auth-flow",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "api", "auth-flow"]
+              }
+            }
+          },
+          {
+            "name": "5.2 اختبار إعدادات JWT",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/config/jwt",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "config", "jwt"]
+              }
+            }
+          },
+          {
+            "name": "5.3 اختبار إعدادات التطبيق",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/api/testing/config/application",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "testing", "config", "application"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "6. اختبارات المصادقة",
+        "item": [
+          {
+            "name": "6.1 تسجيل الدخول (Admin)",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"admin@bologna.edu.iq\",\n  \"password\": \"Admin2024!\"\n}"
+              },
+              "url": {
+                "raw": "{{baseUrl}}/api/Auth/login",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "Auth", "login"]
+              }
+            }
+          },
+          {
+            "name": "6.2 تسجيل دخول (Professor)",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"dr.omar@bologna.edu.iq\",\n  \"password\": \"Prof2024!\"\n}"
+              },
+              "url": {
+                "raw": "{{baseUrl}}/api/Auth/login",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "Auth", "login"]
+              }
+            }
+          },
+          {
+            "name": "6.3 تسجيل دخول (Student)",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"ahmed.ali@student.edu.iq\",\n  \"password\": \"Student2024!\"\n}"
+              },
+              "url": {
+                "raw": "{{baseUrl}}/api/Auth/login",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "Auth", "login"]
+              }
+            }
+          },
+          {
+            "name": "6.4 جلب الملف الشخصي",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/Auth/profile",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "Auth", "profile"]
+              }
+            }
+          },
+          {
+            "name": "6.5 تغيير كلمة المرور",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"currentPassword\": \"Student2024!\",\n  \"newPassword\": \"NewPassword2024!\",\n  \"confirmPassword\": \"NewPassword2024!\"\n}"
+              },
+              "url": {
+                "raw": "{{baseUrl}}/api/Auth/change-password",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "Auth", "change-password"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "7. اختبارات إدارة الطلاب",
+        "item": [
+          {
+            "name": "7.1 جلب قائمة الطلاب",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/Student",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "Student"]
+              }
+            }
+          },
+          {
+            "name": "7.2 جلب طالب محدد",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/Student/1",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "Student", "1"]
+              }
+            }
+          },
+          {
+            "name": "7.3 البحث عن طالب",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/Student/search?query=أحمد",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "Student", "search"],
+                "query": [
+                  {
+                    "key": "query",
+                    "value": "أحمد"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "name": "7.4 إنشاء طالب جديد",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"test.student@student.edu.iq\",\n  \"fullName\": \"طالب اختبار جديد\",\n  \"stage\": \"First\",\n  \"studyType\": \"Morning\",\n  \"section\": \"A\",\n  \"phone\": \"07812345678\"\n}"
+              },
+              "url": {
+                "raw": "{{baseUrl}}/api/Student",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "Student"]
+              }
+            }
+          },
+          {
+            "name": "7.5 تحديث بيانات طالب",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"fullName\": \"طالب تم تحديثه\",\n  \"stage\": \"First\",\n  \"studyType\": \"Morning\",\n  \"section\": \"A\",\n  \"phone\": \"07812345678\",\n  \"isActive\": true\n}"
+              },
+              "url": {
+                "raw": "{{baseUrl}}/api/Student/1",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "Student", "1"]
+              }
+            }
+          },
+          {
+            "name": "7.6 جلب إحصائيات الطلاب",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/Student/statistics",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "Student", "statistics"]
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "variable": [
+      {
+        "key": "baseUrl",
+        "value": "http://localhost:5001"
+      },
+      {
+        "key": "token",
+        "value": ""
+      }
+    ]
+  }

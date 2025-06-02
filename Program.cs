@@ -141,6 +141,8 @@ if (!Directory.Exists(uploadsDirectoryPath))
 {
     Directory.CreateDirectory(uploadsDirectoryPath);
     Directory.CreateDirectory(Path.Combine(uploadsDirectoryPath, "faces"));
+    Directory.CreateDirectory(Path.Combine(uploadsDirectoryPath, "test"));
+    Directory.CreateDirectory(Path.Combine(uploadsDirectoryPath, "batch"));
     Directory.CreateDirectory(Path.Combine(uploadsDirectoryPath, "documents"));
     Console.WriteLine($"📁 Created uploads directories");
 }
