@@ -29,8 +29,7 @@ namespace SmartAttendance.API.Models.Entities
         public string? Bio { get; set; }
         
         [StringLength(255)]
-        public string? ProfileImage { get; set; }
-        
+       
         // Navigation Properties
         public User User { get; set; } = null!;
         public ICollection<CourseAssignment> CourseAssignments { get; set; } = new List<CourseAssignment>();
