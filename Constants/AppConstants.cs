@@ -19,7 +19,7 @@ namespace SmartAttendance.API.Constants
     {
         public const string FaceRecognition = "FaceRecognition";
         public const string Manual = "Manual";
-        public const string QRCode = "QRCode";
+        public const string QRCodee = "QRCodee";
     }
 
     public static class SessionStatus

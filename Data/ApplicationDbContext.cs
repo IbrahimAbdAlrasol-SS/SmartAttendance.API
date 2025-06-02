@@ -17,6 +17,8 @@ namespace SmartAttendance.API.Data
         public DbSet<CourseAssignment> CourseAssignments { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<AttendanceRecord> AttendanceRecords { get; set; }
+        public DbSet<QrSession> QrSessions { get; set; }
+        public DbSet<QrUsageLog> QrUsageLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

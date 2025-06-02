@@ -59,11 +59,13 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization();
 
 // Register Services
+// Register Services
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<IQrCodeService, QrCodeService>();
 
 Console.WriteLine("✅ Services registered successfully");
 

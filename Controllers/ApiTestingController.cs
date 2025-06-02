@@ -1497,7 +1497,7 @@ namespace SmartAttendance.API.Controllers
                     {
                         FaceRecognition = DetectionMethods.FaceRecognition,
                         Manual = DetectionMethods.Manual,
-                        QRCode = DetectionMethods.QRCode
+                        QRCodee = DetectionMethods.QRCodee
                     },
                     sessionStatus = new
                     {
